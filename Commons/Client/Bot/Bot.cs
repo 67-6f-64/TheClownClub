@@ -4,20 +4,26 @@ public abstract class Bot
     {
         private readonly BotType _botType;
 
-        private readonly Queue<BotTask> _tasks;
+        private string _status;
+
+    private readonly SortedSet<BotTask> _tasks =
+         new SortedSet<BotTask>(Comparer<BotTask>.Create((a, b) => a.Priority() - b.Priority()));
 
     public Bot(BotType botType)
     {
         this._botType = botType;
     }
 
-    protected void execute()
+    protected void Execute()
     {
         foreach(BotTask task in _tasks) {
-            if (task.condition())
+            if (task.Validate())
             {
-                task.execute();
-                System.Console.WriteLine(task.getBotTaskType());
+
+                task.Execute();
+
+                this._status = task.Description();
+                System.Console.WriteLine(this._status);
             }
         }
     }

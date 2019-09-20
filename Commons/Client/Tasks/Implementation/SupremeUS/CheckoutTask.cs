@@ -13,7 +13,7 @@ namespace Commons.Client.Bot.Tasks.Implementation.SupremeUS
             return false;
         }
 
-        public override void execute()
+        public override void Execute()
         {
             //Execute the code.
             throw new NotImplementedException();
