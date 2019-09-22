@@ -1,3 +1,4 @@
+using Commons.Client.Bot;
 using System.Collections.Generic;
 
 class Client

@@ -5,7 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Client\Tasks\Comp\" />
+    <Compile Remove="Client\Bot\Tasks\Comp\**" />
+    <EmbeddedResource Remove="Client\Bot\Tasks\Comp\**" />
+    <None Remove="Client\Bot\Tasks\Comp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="PuppeteerSharp" Version="1.19.0" />
   </ItemGroup>
 
 </Project>
