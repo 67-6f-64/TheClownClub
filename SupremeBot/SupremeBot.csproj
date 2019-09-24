@@ -240,6 +240,15 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ClownScript\ClownScript.csproj">
+      <Project>{5ec8c534-bd04-4d96-bae7-a7c6d840226f}</Project>
+      <Name>ClownScript</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Commons\Common.csproj">
+      <Project>{423e3e34-c646-40a0-967a-6d102df10dda}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

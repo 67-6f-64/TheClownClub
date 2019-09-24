@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClownClubServer", "ClownClu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupremeBot", "SupremeBot\SupremeBot.csproj", "{88F24CF4-D7D5-4CDB-9D8B-D4ED35EBF4C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons", "Commons\Commons.csproj", "{423E3E34-C646-40A0-967A-6D102DF10DDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Commons\Common.csproj", "{423E3E34-C646-40A0-967A-6D102DF10DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClownScript", "ClownScript\ClownScript.csproj", "{5EC8C534-BD04-4D96-BAE7-A7C6D840226F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{423E3E34-C646-40A0-967A-6D102DF10DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{423E3E34-C646-40A0-967A-6D102DF10DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{423E3E34-C646-40A0-967A-6D102DF10DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC8C534-BD04-4D96-BAE7-A7C6D840226F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC8C534-BD04-4D96-BAE7-A7C6D840226F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC8C534-BD04-4D96-BAE7-A7C6D840226F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC8C534-BD04-4D96-BAE7-A7C6D840226F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

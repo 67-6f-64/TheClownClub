@@ -1,40 +1,56 @@
 ﻿using System;
-
-using System.Threading.Tasks;
-
 using System.Collections.Generic;
 
-public abstract class BotTask
-{
-    //Any type of bot. Anything that extends bot.
-    private readonly Bot _bot;
+namespace Common {
+    public abstract class BotTask {
+        /// <summary>
+        /// The parent bot for this task
+        /// </summary>
+        private readonly Bot _bot;
 
-    //Sort modules by priority.
-    private readonly SortedSet<BotTask> _tasks =
-        new SortedSet<BotTask>(Comparer<BotTask>.Create((a, b) => a.Priority() - b.Priority()));
+        /// <summary>
+        /// List of tasks sorted by ascending priority
+        /// </summary>
+        private readonly SortedSet<BotTask> _tasks =
+            new SortedSet<BotTask>(Comparer<BotTask>.Create((a, b) => a.Priority() - b.Priority()));
 
-    public BotTask(Bot bot) : base(){
-        this._bot = bot;
-    }
+        protected BotTask(Bot bot) {
+            _bot = bot;
+        }
 
-    public abstract int Priority();
+        /// <summary>
+        /// The priority which determines the order in which the tasks will be ran
+        /// </summary>
+        /// <returns>The priority of this task</returns>
+        public abstract int Priority();
 
-    public abstract bool Validate();
+        /// <summary>
+        /// Checks whether the task should be ran under the current conditions
+        /// </summary>
+        /// <returns>A boolean representing whether or not the task should run</returns>
+        public abstract bool Validate();
 
-    public abstract void Execute();
+        /// <summary>
+        /// Runs the task
+        /// </summary>
+        public abstract void Execute();
 
-    public abstract String Description();
+        /// <summary>
+        /// Used to give a description of the task
+        /// </summary>
+        /// <returns>Description of task</returns>
+        public abstract string Description();
 
-    /**
-     * Add tasks to our current BotTask.
-     */
-    public void append(params BotTask[] tasks)
-    {
-        Array.ForEach(tasks, task => _tasks.Add(task));
-    }
+        /// <summary>
+        /// Add child tasks to parent task
+        /// </summary>
+        /// <param name="tasks">All the tasks to be added</param>
+        public void Append(params BotTask[] tasks) {
+            Array.ForEach(tasks, task => _tasks.Add(task));
+        }
 
-    public Bot getBot()
-    {
-        return this._bot;
+        public Bot GetBot() {
+            return _bot;
+        }
     }
 }

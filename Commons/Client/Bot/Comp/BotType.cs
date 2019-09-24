@@ -1,4 +1,5 @@
-public enum BotType
-{
-    SUPREME_US
+namespace Common {
+    public enum BotType {
+        SupremeUs
+    }
 }

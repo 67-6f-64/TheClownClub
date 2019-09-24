@@ -10,14 +10,6 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace SupremeBot {
-    public enum BotStep {
-        FindProduct,
-        FindStyleAndSize,
-        AddToCart,
-        ParseCheckout,
-        Captcha,
-        Checkout
-    }
 
     public class Bot {
         private static Random random = new Random();
@@ -28,23 +20,16 @@ namespace SupremeBot {
         public string m_CsrfToken { get; set; }
         public string m_CheckoutPostData { get; set; }
         public Browser m_Browser { get; private set; }
-        public Page m_Page { get; private set; }
-        public BotStep m_Step { get; private set; }
+        public Page page { get; private set; }
        
-        public long m_SizeId { get; set; }
-        public long m_StyleId { get; set; }
-
-        public static string RandomString(int length) {
-            const string chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
+        public long SizeId { get; set; }
+        public long StyleId { get; set; }
 
         public async Task Init() {
             m_Status = "Initializing browser...";
             await InitBrowser();
             m_Status = "Initializing page...";
-            await GeneratePage().ContinueWith(t => m_Page = t.Result);
+            await GeneratePage().ContinueWith(t => page = t.Result, m_Cancel);
         }
         private async Task InitBrowser() {
             var currentDirectory = Directory.GetCurrentDirectory();
@@ -64,7 +49,7 @@ namespace SupremeBot {
                 throw new Exception("Failed to initialize browser.");
             }
 
-            List<string> args = new List<string> {
+            var args = new List<string> {
                 "--no-sandbox",
                 "--disable-setuid-sandbox",
                 "--disable-infobars",
@@ -73,9 +58,6 @@ namespace SupremeBot {
                 "--ignore-certifcate-errors-spki-list",
                 $"--user-agent=\"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36 {m_Id}\""
             };
-
-            if (!m_Proxy.Equals("NONE"))
-                args.Add(string.Format("--proxy-server={0}", m_Proxy));
 
             var options = new LaunchOptions {
                 Headless = false,
@@ -343,7 +325,7 @@ namespace SupremeBot {
                 if (e.Request.Url.EndsWith("add.json")) {
                     Payload payload = new Payload { Method = HttpMethod.Post, Headers = e.Request.Headers };
                     payload.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                    payload.PostData = $"st={m_StyleId}&s={m_SizeId}&qty=1";
+                    payload.PostData = $"st={StyleId}&s={SizeId}&qty=1";
                     e.Request.ContinueAsync(payload);
                 }
                 else if (e.Request.Url.EndsWith("checkout.json")) {
@@ -373,7 +355,7 @@ namespace SupremeBot {
                     e.Request.ContinueAsync();
                 }
                 else {
-                    if (m_Step.Equals(BotStep.Captcha)) {
+                    if (false /* allow js for captcha */) {
                         if (e.Request.ResourceType.Equals(ResourceType.Image)
                             || e.Request.ResourceType.Equals(ResourceType.StyleSheet)
                             || e.Request.ResourceType.Equals(ResourceType.Font))
@@ -395,12 +377,7 @@ namespace SupremeBot {
             return page;
         }
 
-        public Bot(string proxy = "") {
-            m_Id = RandomString(6);
-            if (!string.IsNullOrEmpty(m_Proxy) && !proxy.Equals("0.0.0.0:65535"))
-                m_Proxy = proxy;
-            else
-                m_Proxy = "NONE";
+        public Bot() {
             m_Status = "Idle";
         }
     }
