@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="ClownAIO.Pages.SettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d">
+    <Grid Style="{StaticResource ContentRoot}">
+        <StackPanel Margin="0,0,10,0">
+            <Label Content="Monitor Refresh Interval" />
+            <Slider Name="RefreshSlider" Margin="0,5,0,0" Minimum="1" Maximum="5000" Value="250" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" ValueChanged="RefreshSlider_OnValueChanged" />
+            <xctk:WatermarkTextBox Name="MonitorProxy" Margin="0,5,0,0" Watermark="Proxy (i.e. 127.0.0.1:8888)" />
+            <Button Name="StartMonitorButton" Content="Start Monitor" Click="StartMonitorButton_OnClick" />
+            <Button Name="StopMonitorButton"  Content="Stop Monitor" Click="StopMonitorButton_OnClick" />
+        </StackPanel>
+    </Grid>
+</UserControl>

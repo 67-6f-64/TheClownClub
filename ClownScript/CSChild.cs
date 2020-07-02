@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using CSScript = System.Func<ClownScript.CSManager, int>;
+﻿using CSScript = System.Func<ClownScript.CSManager, int>;
 
 namespace ClownScript {
     /// <summary>

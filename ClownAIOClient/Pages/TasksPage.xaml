@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="ClownAIO.Pages.TasksPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d">
+
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*" />
+            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="20*" />
+        </Grid.ColumnDefinitions>
+        <ListView Name="TaskListView" Grid.Column="0" SelectionChanged="TaskListView_OnSelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="Auto" >
+                        <GridViewColumnHeader Content="Type" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding Path=BotType}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Width="100" >
+                        <GridViewColumnHeader Content="Proxy" Padding="5,0,5,0" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding Path=Proxy}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="150" >
+                        <GridViewColumnHeader Content="Status" Padding="5,0,5,0" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding Path=Status}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" >
+                        <GridViewColumnHeader Content="Completed In" Padding="5,0,5,0" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding Path=CompletedInMs}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <xctk:PropertyGrid Name="TaskPropertyGrid" Grid.Column="1" ShowSortOptions="False" SelectedObject="{Binding Bot}" />
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ComboBox Name="BotType" DisplayMemberPath="Key" SelectedValuePath="Value" SelectionChanged="BotType_OnSelectionChanged" />
+            <Grid Name="SupremeUs" Grid.Row="1" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ComboBox Name="CategoryCombo" Grid.Row="0" SelectedIndex="0" >
+                    <ComboBoxItem Content="new"/>
+                    <ComboBoxItem Content="Jackets"/>
+                    <ComboBoxItem Content="Shirts"/>
+                    <ComboBoxItem Content="Tops/Sweaters"/>
+                    <ComboBoxItem Content="Sweatshirts"/>
+                    <ComboBoxItem Content="Pants"/>
+                    <ComboBoxItem Content="Shorts"/>
+                    <ComboBoxItem Content="Hats"/>
+                    <ComboBoxItem Content="Bags"/>
+                    <ComboBoxItem Content="Accessories"/>
+                    <ComboBoxItem Content="Skate"/>
+                </ComboBox>
+                <xctk:WatermarkTextBox Name="ProductKeywords" Grid.Row="1" Watermark="Product Keywords (i.e. bogo,-clown)" />
+                <xctk:WatermarkTextBox Name="ColorKeywords" Grid.Row="2" Watermark="Color Keywords (i.e. (gray,-blue)" />
+                <ComboBox Name="SizeCombo" Grid.Row="3" SelectedIndex="0" >
+                    <ComboBoxItem Content="Any"/>
+                    <ComboBoxItem Content="Small"/>
+                    <ComboBoxItem Content="Medium"/>
+                    <ComboBoxItem Content="Large"/>
+                    <ComboBoxItem Content="XLarge"/>
+                </ComboBox>
+                <xctk:WatermarkTextBox Name="ProxyAddress" Grid.Row="4" Watermark="Proxy (i.e. 127.0.0.1:8888)" />
+                <Grid Grid.Row="5" Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Delay" Margin="10,0,13,0" Foreground="White" />
+                    <Slider Name="CheckoutDelaySlider" Grid.Column="1" Minimum="0" Maximum="5000" Value="2500" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+                </Grid>
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Profile" Grid.Column="0" Margin="10,0,10,0" Foreground="White" />
+                    <ComboBox Name="BillingCombo" Grid.Column="1" DisplayMemberPath="Key" SelectedValuePath="Value" />
+                </Grid>
+                <CheckBox Name="CaptchaBypassCheckbox" Grid.Row="7" Margin="5" Content="Captcha Bypass (US Only)" HorizontalAlignment="Center" />
+                <Button Name="AddTaskButton" Grid.Row="8" Content="Add Task" Click="AddTaskButton_OnClick" />
+            </Grid>
+            <Button Name="SaveTaskButton" Grid.Row="3" Content="Save Task(s)" Click="SaveTaskButton_OnClick" />
+            <Button Name="LoadTaskButton" Grid.Row="4" Content="Load Task(s)" Click="LoadTaskButton_OnClick" />
+            <Button Name="StartTaskButton" Grid.Row="5" Content="Start Task(s)" Click="StartTaskButton_OnClick" />
+            <Button Name="StopTaskButton" Grid.Row="6" Content="Stop Task(s)" Click="StopTaskButton_OnClick" />
+        </Grid>
+    </Grid>
+</UserControl>
